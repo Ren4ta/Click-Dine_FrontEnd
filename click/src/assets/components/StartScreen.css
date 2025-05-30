@@ -50,4 +50,9 @@ body {
   .start-button:hover {
     background-color: #005a68; /* Lighter teal on hover */
     transform: scale(1.05); /* Subtle hover scale effect */
+  } 
+  .logo-container img 
+  {
+    height:auto ; 
+    width: 600px;
   }

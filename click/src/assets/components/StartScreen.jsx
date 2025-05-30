@@ -12,10 +12,8 @@ const StartScreen = () => {
   return (
     <div className="start-screen">
       <div className="logo-container">
-        <h1>
-          Click&<span>Dine</span>
-        </h1>
-        <img src="/path-to-your-dome-image.png" alt="Dome Logo" className="logo-image" />
+       
+        <img src="src/assets/img/LOGO.jpg" alt="click&dine" className="logo-image" />
       </div>
       <button className="start-button" onClick={handleStart}>
         INICIAR
