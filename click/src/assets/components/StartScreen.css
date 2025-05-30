@@ -1,55 +1,40 @@
-/* Body reset to center the screen */
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #fdf3e0; /* Light beige background */
+    background-color: #fdf3e0; 
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
   }
   
-  /* Main screen container */
   .start-screen {
     text-align: center;
   }
   
-  /* Logo text */
-  .logo-container h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #d34242; /* Red for "Click" */
-    margin: 0;
-  }
-  
-  .logo-container h1 span {
-    color: #000; /* Black for "Dine" */
-  }
-  
-  /* Logo image styling */
+ 
   .logo-image {
-    width: 80px; /* Adjust as needed */
+    width: 80px; 
     height: auto;
     margin: 1rem auto;
   }
   
   .start-button {
-    padding: 1rem 2rem; /* Increased padding for a larger button */
-    font-size: 1.2rem; /* Increased font size for better readability */
-    font-weight: bold;
+    padding: 1rem 2rem; 
+    font-size: 1.2rem; 
     color: #fff;
-    background-color: #003a46; /* Dark teal */
+    background-color: #003a46; 
     border: none;
-    border-radius: 30px; /* Slightly larger border radius for better proportion */
+    border-radius: 30px; 
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
-  /* Button hover effect */
   .start-button:hover {
-    background-color: #005a68; /* Lighter teal on hover */
-    transform: scale(1.05); /* Subtle hover scale effect */
+    background-color: #005a68; 
+    transform: scale(1.05); 
   } 
   .logo-container img 
   {
