@@ -6,13 +6,12 @@ const StartScreen = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate('/home'); // navigates to the homepage or menu screen
+    navigate('/login'); // Redirige al componente LogIn
   };
 
   return (
     <div className="start-screen">
       <div className="logo-container">
-       
         <img src="src/assets/img/LOGO.jpg" alt="click&dine" className="logo-image" />
       </div>
       <button className="start-button" onClick={handleStart}>
