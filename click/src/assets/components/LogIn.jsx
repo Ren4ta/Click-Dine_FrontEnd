@@ -59,7 +59,7 @@ const StyledWrapper = styled.div`
   }
 
   .inputForm {
-    position: relative; /* Necesario para posicionar el ícono del ojito */
+    position: relative;
     border: 1.5px solid #ecedec;
     border-radius: 12px;
     height: 60px;
@@ -73,7 +73,7 @@ const StyledWrapper = styled.div`
     margin-left: 15px;
     border-radius: 10px;
     border: none;
-    width: 90%; /* Reduce el ancho para dejar espacio al ícono */
+    width: 90%; 
     height: 100%;
     font-size: 16px;
   }
@@ -88,10 +88,10 @@ const StyledWrapper = styled.div`
 
   .password-icon {
     position: absolute;
-    right: 15px; /* Ajusta la distancia desde el borde derecho */
+    right: 15px; 
     cursor: pointer;
-    color: #7d7d7d; /* Color del icono */
-    font-size: 18px; /* Tamaño del ícono */
+    color: #7d7d7d; 
+    font-size: 18px; 
   }
 
   .flex-row {

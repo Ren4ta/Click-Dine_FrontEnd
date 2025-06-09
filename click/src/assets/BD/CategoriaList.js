@@ -15,7 +15,7 @@ return (
 <h2>Categorías desde Supabase</h2>
 <ul>
 {categorias.map(cat => (
-<li key={cat.id}>{cat.nombre}</li> // Adjust field as needed
+<li key={cat.id}>{cat.nombre} {cat.img}</li> 
 ))}
 </ul>
 </div>
