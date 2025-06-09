@@ -1,43 +1,63 @@
-
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #fdf3e0; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .start-screen {
-    text-align: center;
-  }
-  
- 
-  .logo-image {
-    width: 80px; 
-    height: auto;
-    margin: 1rem auto;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #fdf3e0; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.start-screen {
+  text-align: center;
+  padding: 1rem;
+}
+
+.logo-image {
+  width: 50%; /* Escala proporcionalmente */
+  max-width: 300px; /* Limita el tamaño máximo */
+  height: auto;
+  margin: 1rem auto;
+}
+
+.start-button {
+  padding: 0.8rem 1.5rem; /* Ajusta el padding para ser más adaptable */
+  font-size: 1rem; 
+  color: #fff;
+  background-color: #003a46; 
+  border: none;
+  border-radius: 30px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-button:hover {
+  background-color: #005a68; 
+  transform: scale(1.05); 
+}
+
+.logo-container img {
+  height: auto; 
+  width: 100%; /* Usa todo el ancho disponible */
+  max-width: 600px; /* Limita el tamaño máximo */
+}
+
+/* Media Queries para Responsiveness */
+@media (max-width: 768px) {
   .start-button {
-    padding: 1rem 2rem; 
-    font-size: 1.2rem; 
-    color: #fff;
-    background-color: #003a46; 
-    border: none;
-    border-radius: 30px; 
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.2rem;
   }
-  
-  .start-button:hover {
-    background-color: #005a68; 
-    transform: scale(1.05); 
-  } 
-  .logo-container img 
-  {
-    height:auto ; 
-    width: 600px;
+}
+
+@media (max-width: 480px) {
+  .logo-image {
+      width: 70%; /* Más pequeño en pantallas muy pequeñas */
   }
+
+  .start-button {
+      font-size: 0.8rem;
+      padding: 0.6rem 1rem;
+  }
+}

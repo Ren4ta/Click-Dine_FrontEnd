@@ -33,46 +33,49 @@ const LogIn = () => {
 }
 
 const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fef6e4;
+
   .form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     background-color: #ffffff;
-    padding: 30px;
-    width: 450px;
-    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 25px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-
-  ::placeholder {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-
-  .form button {
-    align-self: flex-end;
   }
 
   .flex-column > label {
     color: #151717;
     font-weight: 600;
+    font-size: 16px;
   }
 
   .inputForm {
+    position: relative; /* Necesario para posicionar el ícono del ojito */
     border: 1.5px solid #ecedec;
-    border-radius: 10px;
-    height: 50px;
+    border-radius: 12px;
+    height: 60px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 15px;
     transition: 0.2s ease-in-out;
   }
 
   .input {
-    margin-left: 10px;
+    margin-left: 15px;
     border-radius: 10px;
     border: none;
-    width: 85%;
+    width: 90%; /* Reduce el ancho para dejar espacio al ícono */
     height: 100%;
+    font-size: 16px;
   }
 
   .input:focus {
@@ -83,22 +86,30 @@ const StyledWrapper = styled.div`
     border: 1.5px solid #2d79f3;
   }
 
+  .password-icon {
+    position: absolute;
+    right: 15px; /* Ajusta la distancia desde el borde derecho */
+    cursor: pointer;
+    color: #7d7d7d; /* Color del icono */
+    font-size: 18px; /* Tamaño del ícono */
+  }
+
   .flex-row {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     justify-content: space-between;
   }
 
   .flex-row > div > label {
-    font-size: 14px;
+    font-size: 15px;
     color: black;
     font-weight: 400;
   }
 
   .span {
-    font-size: 14px;
+    font-size: 15px;
     margin-left: 5px;
     color: #2d79f3;
     font-weight: 500;
@@ -106,48 +117,25 @@ const StyledWrapper = styled.div`
   }
 
   .button-submit {
-    margin: 20px 0 10px 0;
+    margin-top: 30px;
     background-color: #668BBC; 
     border: none;
     color: white;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
-    border-radius: 10px;
-    height: 50px;
+    border-radius: 12px;
+    height: 60px;
     width: 100%;
     cursor: pointer;
+    transition: background-color 0.3s;
   }
 
   .button-submit:hover {
     background-color: #003049;
   }
+`;
 
-  .p {
-    text-align: center;
-    color: black;
-    font-size: 14px;
-    margin: 5px 0;
-  }
 
-  .btn {
-    margin-top: 10px;
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    gap: 10px;
-    border: 1px solid #ededef;
-    background-color: white;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-  }
 
-  .btn:hover {
-    border: 1px solid #2d79f3;
-    ;
-  }`;
 
 export default LogIn;
