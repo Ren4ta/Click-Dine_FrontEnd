@@ -17,7 +17,7 @@ body {
 .logo-image {
   width: 50%; /* Escala proporcionalmente */
   max-width: 300px; /* Limita el tamaño máximo */
-  height: auto;
+  height: 40%;
   margin: 1rem auto;
 }
 

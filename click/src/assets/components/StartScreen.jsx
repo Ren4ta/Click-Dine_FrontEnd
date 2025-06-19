@@ -12,7 +12,7 @@ const StartScreen = () => {
   return (
     <div className="start-screen">
       <div className="logo-container">
-        <img src="src/assets/img/LOGO.jpg" alt="click&dine" className="logo-image" />
+        <img src="src/assets/img/LOGO.png" alt="click&dine" className="logo-image" />
       </div>
       <button className="start-button" onClick={handleStart}>
         INICIAR
