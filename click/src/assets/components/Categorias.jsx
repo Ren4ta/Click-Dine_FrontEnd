@@ -1,22 +1,15 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient';
+import React, { useEffect, useState } from 'react'; 
+
 
 function Categorias() {
     const [categorias, setCategorias] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchCategorias() {
-            const { data, error } = await supabase.from('categorias').select('*');
-            if (error) console.error(error);
-            else setCategorias(data);
-            setLoading(false);
-        }
-
-        fetchCategorias();
+        fetch('http://localhost:4000/api/categorias')
+            .then(res => res.json())
+            .then(data => setCategorias(data))
+            .catch(err => console.error('Failed to fetch:', err));
     }, []);
-
-    if (loading) return <p>Cargando categorías...</p>;
 
     return (
         <div className="p-4">
