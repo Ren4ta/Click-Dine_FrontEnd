@@ -1,29 +1,37 @@
-import React, { useEffect, useState } from 'react'; 
+import React from 'react';
+import './Categorias.css';
 
+const categories = [
+  { name: 'ENTRADAS', img: 'entradas.jpg' },
+  { name: 'PRINCIPALES', img: 'principales.jpg' },
+  { name: 'POSTRES', img: 'postres.jpg' },
+  { name: 'BEBIDAS', img: 'bebidas.jpg' },
+  { name: 'TRAGOS', img: 'tragos.jpg' },
+  { name: 'PROMOS', img: '', isPromo: true },
+  { name: 'MENÚ KIDS', img: 'kids.jpg' },
+  { name: 'CAFETERÍA', img: 'cafe.jpg' }
+];
 
-function Categorias() {
-    const [categorias, setCategorias] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:4000/api/categorias')
-            .then(res => res.json())
-            .then(data => setCategorias(data))
-            .catch(err => console.error('Failed to fetch:', err));
-    }, []);
-
-    return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">Categorías desde Supabase</h2>
-            <ul className="space-y-2">
-                {categorias.map(cat => (
-                    <li key={cat.id} className="flex items-center gap-4 p-2 border rounded-lg shadow-sm">
-                        <img src={cat.img} alt={cat.nombre} className="w-12 h-12 rounded-full object-cover" />
-                        <span className="text-lg font-medium">{cat.nombre}</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+export default function Categorias() {
+  return (
+    <div className="menu-container">
+      <div className="menu-grid">
+        {categories.map((cat, idx) => (
+          <div key={idx} className={`menu-item ${cat.isPromo ? 'promo' : ''}`}>
+            {cat.isPromo ? (
+              <>
+                <div className="promo-text">PROMOS</div>
+                <div className="promo-question">?</div>
+              </>
+            ) : (
+              <>
+                <img src={cat.img} alt={cat.name} className="menu-img" />
+                <div className="menu-text">{cat.name}</div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
-
-export default Categorias;

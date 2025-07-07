@@ -1,0 +1,21 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: #fdf1dc;
+    font-family: 'Helvetica Neue', sans-serif;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 3rem; /* nuevo espacio debajo del header */
+}
+
+.logo-image {
+    height: 60px; /* ajustá esto si está muy grande */
+    object-fit: contain;
+  }
+  
+  .notification {
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+  

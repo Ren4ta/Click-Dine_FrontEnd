@@ -1,24 +1,33 @@
-// App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StartScreen from './assets/components/StartScreen'; 
-import LogIn from './assets/components/LogIn';  
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import StartScreen from './assets/components/StartScreen';
+import LogIn from './assets/components/LogIn';
 import Categorias from './assets/components/Categorias';
+import Header from './assets/components/Header';
 
+function Layout() {
+  const location = useLocation();
+  const hideHeaderRoutes = ['/', '/login'];
+
+  const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname);
+
+  return (
+    <>
+      {shouldShowHeader && <Header />}
+      <Routes>
+        <Route path="/" element={<StartScreen />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/categorias" element={<Categorias />} />
+      </Routes>
+    </>
+  );
+}
 
 const App = () => {
   return (
     <Router>
-      <Routes> 
-      <Route path="/" element={<StartScreen />} />
-      <Route path="/login" element={<LogIn />} /> 
-      <Route path ="/categorias" element = {<Categorias />} />
-
-      </Routes>
+      <Layout />
     </Router>
   );
 };
 
-
-
-export default App
+export default App;
