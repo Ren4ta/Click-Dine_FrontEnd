@@ -2,16 +2,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 0.5rem 2rem;
     background-color: #fdf1dc;
     font-family: 'Helvetica Neue', sans-serif;
     border-bottom: 2px solid #eee;
-    margin-bottom: 3rem; /* nuevo espacio debajo del header */
+
+}
+.logo{
+  height: 100px;
 }
 
 .logo-image {
-    height: 60px; /* ajustá esto si está muy grande */
-    object-fit: contain;
+    height: 100px; /* ajustá esto si está muy grande */
+    width: 100px;
   }
   
   .notification {
