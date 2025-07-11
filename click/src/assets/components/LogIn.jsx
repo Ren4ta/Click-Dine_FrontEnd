@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const LogIn = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('admin@testaurant.com');
+  const [email, setEmail] = useState('cliente1@gmail.com');
   const [contrasena, setContrasena] = useState('hola');
   const [error, setError] = useState(null);
 
@@ -20,15 +20,22 @@ const LogIn = () => {
       });
 
       const data = await res.json();
-
+      const id_tipo = data.id_tipo;
       if (data.login_status === 'Login successful') {
         console.log('Sesión iniciada:', data);
         localStorage.setItem('user_id', data.id);
         localStorage.setItem('user_email', data.mail);
         localStorage.setItem('id_restaurante', data.id_restaurante);
         localStorage.setItem('id_tipo', data.id_tipo);
-       if ()
-        navigate('/categorias');
+       if (id_tipo === 3) 
+       {
+         navigate('/categorias');
+       } 
+       else if (id_tipo === 1 || id_tipo === 2)
+       {
+        navigate('/');
+       }
+       
       } else {
         setError(data.login_status);
       }
