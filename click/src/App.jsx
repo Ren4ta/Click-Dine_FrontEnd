@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import StartScreen from './assets/components/StartScreen';
+import StartScreen from './assets/components/StartScreen/StartScreen';
 import LogIn from './assets/components/LogIn';
-import Categorias from './assets/components/Categorias';
-import Header from './assets/components/Header';
+import Categorias from './assets/components/Categorias/Categorias';
+import Header from './assets/components/Header/Header';
 
 function Layout() {
   const location = useLocation();
