@@ -6,7 +6,7 @@ import Header from './assets/components/Header/Header';
 
 function Layout() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/', '/login'];
+  const hideHeaderRoutes = ['/', '/login', '/admin', 'mesero'];
 
   const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname);
 
@@ -16,7 +16,8 @@ function Layout() {
       <Routes>
         <Route path="/" element={<StartScreen />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/categorias" element={<Categorias />} />
+        <Route path="/categorias" element={<Categorias />} />  
+        
       </Routes>
     </>
   );

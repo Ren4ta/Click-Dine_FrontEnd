@@ -26,14 +26,21 @@ const LogIn = () => {
         localStorage.setItem('user_id', data.id);
         localStorage.setItem('user_email', data.mail);
         localStorage.setItem('id_restaurante', data.id_restaurante);
-        localStorage.setItem('id_tipo', data.id_tipo);
+        localStorage.setItem('id_tipo', data.id_tipo); 
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+        }
        if (id_tipo === 3) 
        {
          navigate('/categorias');
        } 
-       else if (id_tipo === 1 || id_tipo === 2)
+       else if (id_tipo === 1 )
        {
-        navigate('/');
+        navigate('/admin');
+       } 
+       else if (id_tipo === 2 )
+       {
+        navigate('/mesero');
        }
        
       } else {
