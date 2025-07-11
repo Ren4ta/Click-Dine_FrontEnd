@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Categorias.css';
 
-const categories = [
-  { name: 'ENTRADAS', img: 'entradas.jpg' },
-  { name: 'PRINCIPALES', img: 'principales.jpg' },
-  { name: 'POSTRES', img: 'postres.jpg' },
-  { name: 'BEBIDAS', img: 'bebidas.jpg' },
-  { name: 'TRAGOS', img: 'tragos.jpg' },
-  { name: 'PROMOS', img: '', isPromo: true },
-  { name: 'MENÚ KIDS', img: 'kids.jpg' },
-  { name: 'CAFETERÍA', img: 'cafe.jpg' }
-];
+export default function Categorias({ idRestaurante }) {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-export default function Categorias() {
+  useEffect(() => {
+    if (!idRestaurante) return;
+
+    fetch(`http://localhost:3000/api/categorias/${idRestaurante}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Error al obtener categorías');
+        return res.json();
+      })
+      .then(data => {
+        setCategories(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [idRestaurante]);
+
+  if (loading) return <div>Cargando categorías...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <div className="menu-container">
       <div className="menu-grid">
@@ -25,7 +39,12 @@ export default function Categorias() {
               </>
             ) : (
               <>
-                <img src={cat.img} alt={cat.name} className="menu-img" />
+                {/* Verificamos que la imagen exista y sea válida */}
+                <img
+                  src={cat.img || 'placeholder.jpg'}
+                  alt={cat.name}
+                  className="menu-img"
+                />
                 <div className="menu-text">{cat.name}</div>
               </>
             )}

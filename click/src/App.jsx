@@ -16,7 +16,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<StartScreen />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/categorias" element={<Categorias />} />  
+        <Route path="/categorias" element={<Categorias idRestaurante="1"/>} />  
         
       </Routes>
     </>
