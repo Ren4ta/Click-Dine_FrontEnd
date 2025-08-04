@@ -16,24 +16,32 @@
   .menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    gap: 3.5rem; /* Más espacio entre cards */
+    padding: 2rem 0; /* Espacio arriba y abajo */
   }
   
   .menu-item {
     position: relative;
     overflow: hidden;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    background-color: white;
-    aspect-ratio: 5 / 3; /* más ancho todavía */
-    transition: transform 0.3s ease;
+    border-radius: 32px; /* Más redondeado */
+    box-shadow: 0 14px 36px rgba(168, 95, 0, 0.13), 0 1.5px 5px rgba(0,0,0,0.08);
+    background-color: #fff9ed;
+    aspect-ratio: 5 / 3;
+    min-height: 270px; /* Hace las cartas más grandes */
+    max-width: 430px;  /* Opcional: restringe anchura máxima */
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s cubic-bezier(.18,1.25,.82,1.08), box-shadow 0.3s;
+    cursor: pointer;
+    border: 2.5px solid #FFF1DC;
   }
   
   .menu-item:hover {
-    transform: scale(1.02);
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(255,130,30,0.12), 0 2px 8px rgba(0,0,0,0.13);
+    border-color: #FFA536;
   }
   
   .menu-img {
@@ -42,44 +50,35 @@
     height: 100%;
     object-fit: cover;
     filter: brightness(0.9);
-    z-index: 1;
+    z-index: 1; /* Imagen detrás */
+  }
+  .menu-item:hover .menu-img {
+    filter: brightness(1) saturate(1.3);
   }
   
   .menu-text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    font-weight: bold;
-    color: white;
-    text-shadow: 1px 1px 4px black;
+    position: absolute; /* Para ubicarse sobre la imagen */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Por encima de la imagen */
+    font-weight: 300;
+    font-family: 'Helvetica Neue', sans-serif;
     font-size: 1.8rem;
+    color: rgba(0, 0, 0, 0.7);
+    letter-spacing: 1.2px;
+    text-align: center;
+    text-shadow: none;
+    pointer-events: none;
   }
+  
   
   .promo {
-    background-color: #a00000;
+    background: linear-gradient(90deg, #e94b08 0%, #ffa436 100%);
     color: white;
     flex-direction: column;
-  }
-  
-  .promo-text {
-    font-size: 1.8rem;
-    font-weight: bold;
-    z-index: 2;
-  }
-  
-  .promo-question {
-    background-color: black;
-    color: white;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    text-align: center;
-    line-height: 36px;
-    font-size: 1.3rem;
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    z-index: 2;
+    border-radius: 28px;
+    box-shadow: 0 8px 25px rgba(245,120,30,0.13);
   }
   
   /* 📱 Tablet */

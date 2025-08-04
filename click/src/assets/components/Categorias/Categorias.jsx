@@ -42,7 +42,7 @@ export default function Categorias({ idRestaurante }) {
                 {/* Verificamos que la imagen exista y sea válida */}
                 <img
                   src={cat.img || 'placeholder.jpg'}
-                  alt={cat.name}
+                  alt={cat.nombre}
                   className="menu-img"
                 />
                 <div className="menu-text">{cat.name}</div>
