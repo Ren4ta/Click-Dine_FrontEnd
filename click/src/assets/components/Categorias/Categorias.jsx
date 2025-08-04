@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Categorias.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Categorias({ idRestaurante }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!idRestaurante) return;
@@ -24,6 +26,10 @@ export default function Categorias({ idRestaurante }) {
       });
   }, [idRestaurante]);
 
+  const handleCategoriaClick = (idCategoria) => {
+    navigate(`/items/${idCategoria}`);
+  };
+
   if (loading) return <div>Cargando categorías...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -31,7 +37,11 @@ export default function Categorias({ idRestaurante }) {
     <div className="menu-container">
       <div className="menu-grid">
         {categories.map((cat, idx) => (
-          <div key={idx} className={`menu-item ${cat.isPromo ? 'promo' : ''}`}>
+          <div
+            key={idx}
+            className={`menu-item ${cat.isPromo ? 'promo' : ''}`}
+            onClick={() => !cat.isPromo && handleCategoriaClick(cat.id)} // No navega en promos
+          >
             {cat.isPromo ? (
               <>
                 <div className="promo-text">PROMOS</div>
