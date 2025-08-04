@@ -6,7 +6,7 @@ const StartScreen = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate('/login'); // Redirige al componente LogIn
+    navigate('/login'); 
   };
 
   return (

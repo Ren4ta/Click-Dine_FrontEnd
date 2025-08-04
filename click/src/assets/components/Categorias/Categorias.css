@@ -1,8 +1,7 @@
 .menu-container {
     background-color: #fdf1dc;
-    /* padding: 2rem; */
     font-family: 'Helvetica Neue', sans-serif;
-    max-width: 1600px; /* antes: 1400px */
+    max-width: 1600px; 
     margin: auto;
     min-height: 100vh;
     box-sizing: border-box;
@@ -16,19 +15,19 @@
   .menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3.5rem; /* Más espacio entre cards */
-    padding: 2rem 0; /* Espacio arriba y abajo */
+    gap: 3.5rem; 
+    padding: 2rem 0; 
   }
   
   .menu-item {
     position: relative;
     overflow: hidden;
-    border-radius: 32px; /* Más redondeado */
+    border-radius: 32px; 
     box-shadow: 0 14px 36px rgba(168, 95, 0, 0.13), 0 1.5px 5px rgba(0,0,0,0.08);
     background-color: #fff9ed;
     aspect-ratio: 5 / 3;
-    min-height: 270px; /* Hace las cartas más grandes */
-    max-width: 430px;  /* Opcional: restringe anchura máxima */
+    min-height: 270px; 
+    max-width: 430px;  
     margin: auto;
     display: flex;
     justify-content: center;
@@ -50,18 +49,18 @@
     height: 100%;
     object-fit: cover;
     filter: brightness(0.9);
-    z-index: 1; /* Imagen detrás */
+    z-index: 1; 
   }
   .menu-item:hover .menu-img {
     filter: brightness(1) saturate(1.3);
   }
   
   .menu-text {
-    position: absolute; /* Para ubicarse sobre la imagen */
+    position: absolute; 
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10; /* Por encima de la imagen */
+    z-index: 10; 
     font-weight: 300;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 1.8rem;
@@ -81,14 +80,14 @@
     box-shadow: 0 8px 25px rgba(245,120,30,0.13);
   }
   
-  /* 📱 Tablet */
+
   @media (max-width: 992px) {
     .menu-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
   
-  /* 📱 Móvil */
+
   @media (max-width: 600px) {
     .menu-grid {
       grid-template-columns: 1fr;
