@@ -12,16 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; 
 
-  text-shadow:
-  -2px -2px 0 #FFF1DC,
-   2px -2px 0 #FFF1DC,
-  -2px  2px 0 #FFF1DC,
-   2px  2px 0 #FFF1DC,
-  -1px -1px 0 #FFF1DC,
-   1px -1px 0 #FFF1DC,
-  -1px  1px 0 #FFF1DC,
-   1px  1px 0 #FFF1DC;
-
+ 
 }
 
 a {
