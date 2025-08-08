@@ -101,7 +101,7 @@ const StyledWrapper = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #fdf1dc;
+
 
   .form {
     display: flex;
@@ -182,7 +182,7 @@ const StyledWrapper = styled.div`
 
   .button-submit {
     margin-top: 30px;
-    background-color: #668BBC; 
+    background-color: #780000; 
     border: none;
     color: white;
     font-size: 18px;
@@ -195,7 +195,7 @@ const StyledWrapper = styled.div`
   }
 
   .button-submit:hover {
-    background-color: #003049;
+    background-color: #780000;
   }
 `;
 

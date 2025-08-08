@@ -1,5 +1,4 @@
 .menu-container {
-    background-color: #fdf1dc;
     font-family: 'Helvetica Neue', sans-serif;
     max-width: 1600px; 
     margin: auto;
@@ -40,7 +39,7 @@
   .menu-item:hover {
     transform: translateY(-8px) scale(1.05);
     box-shadow: 0 20px 40px rgba(255,130,30,0.12), 0 2px 8px rgba(0,0,0,0.13);
-    border-color: #FFA536;
+    border-color: #FFF1DC;
   }
   
   .menu-img {
@@ -64,10 +63,8 @@
     font-weight: 300;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 1.8rem;
-    color: rgba(0, 0, 0, 0.7);
     letter-spacing: 1.2px;
     text-align: center;
-    text-shadow: none;
     pointer-events: none;
   }
   
