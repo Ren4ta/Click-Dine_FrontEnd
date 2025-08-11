@@ -21,7 +21,7 @@ function Layout() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/categorias" element={<Categorias idRestaurante="1" />} />
         {/* RUTA PARA ITEMMENU con dos parámetros en URL */}
-        <Route path="/items/:idRestaurante/:idCategoria" element={<ItemMenu />} />
+        <Route path="/items-by-categoria-restaurante/:idRestaurante/:idCategoria" element={<ItemMenu />} />
       </Routes>
     </>
   );

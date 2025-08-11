@@ -9,7 +9,7 @@ export default function ItemMenu() {
 
   useEffect(() => {
     console.log("Parámetros recibidos:", { idRestaurante, idCategoria });
-    fetch(`http://localhost:3000/api/itemmenu/${idRestaurante}/${idCategoria}`)
+    fetch(`http://localhost:3000/api/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`)
       .then(res => {
         if (!res.ok) throw new Error('Error al obtener ítems del menú');
         return res.json();
