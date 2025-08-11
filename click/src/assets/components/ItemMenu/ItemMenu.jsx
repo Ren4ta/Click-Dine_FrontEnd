@@ -14,6 +14,7 @@ export default function ItemMenu() {
         return res.json();
       })
       .then(data => {
+        console.log("Datos recibidos del back:", data); // Para verificar la estructura
         setItems(data);
         setLoading(false);
       })
@@ -28,13 +29,31 @@ export default function ItemMenu() {
 
   return (
     <div className="item-menu-container">
-      <h2>Platos de la categoría {idCategoria}</h2>
+      {/* Mostrar la categoría (usar el nombre de categoría si hay al menos un item) */}
+      <h2>
+        Platos de la categoría{' '}
+        {items.length > 0 ? items[0].categoria : idCategoria}
+      </h2>
+
       <div className="item-grid">
         {items.map(item => (
           <div key={item.id} className="item-card">
-            <img src={item.img} alt={item.nombre} className="item-img" />
+            <img
+              src={item.img || '/placeholder.png'}
+              alt={item.nombre}
+              className="item-img"
+            />
             <h3>{item.nombre}</h3>
-            <p>${item.precio}</p>
+            <p>{item.descripcion}</p>
+            <p><strong>Precio:</strong> ${item.precio}</p>
+            <p>
+              <strong>Disponibilidad:</strong>{' '}
+              {item.disponible ? (
+                <span style={{ color: 'green' }}>Disponible</span>
+              ) : (
+                <span style={{ color: 'red' }}>No disponible</span>
+              )}
+            </p>
           </div>
         ))}
       </div>
