@@ -7,8 +7,10 @@ import ItemMenu from './assets/components/ItemMenu/ItemMenu';
 
 function Layout() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/', '/login', '/admin', 'mesero'];
+  // Rutas en las que NO quieres mostrar el Header
+  const hideHeaderRoutes = ['/', '/login', '/admin', '/mesero'];
 
+  // Mostrar Header solo si no está en las rutas para ocultar
   const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname);
 
   return (
@@ -17,8 +19,9 @@ function Layout() {
       <Routes>
         <Route path="/" element={<StartScreen />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/categorias" element={<Categorias idRestaurante="1"/>} />  
-        
+        <Route path="/categorias" element={<Categorias idRestaurante="1" />} />
+        {/* RUTA PARA ITEMMENU con dos parámetros en URL */}
+        <Route path="/items/:idRestaurante/:idCategoria" element={<ItemMenu />} />
       </Routes>
     </>
   );

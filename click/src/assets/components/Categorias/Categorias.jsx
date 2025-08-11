@@ -27,7 +27,7 @@ export default function Categorias({ idRestaurante }) {
   }, [idRestaurante]);
 
   const handleCategoriaClick = (idCategoria) => {
-    navigate(`/items/${idCategoria}`);
+    navigate(`/items/${idRestaurante}/${idCategoria}`); // Envío ambos parámetros correctamente
   };
 
   if (loading) return <div>Cargando categorías...</div>;
@@ -40,7 +40,7 @@ export default function Categorias({ idRestaurante }) {
           <div
             key={idx}
             className={`menu-item ${cat.isPromo ? 'promo' : ''}`}
-            onClick={() => !cat.isPromo && handleCategoriaClick(cat.id)} // No navega en promos
+            onClick={() => !cat.isPromo && handleCategoriaClick(cat.id)}
           >
             {cat.isPromo ? (
               <>
