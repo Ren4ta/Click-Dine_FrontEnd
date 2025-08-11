@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'; 
+import './ItemMenu.css';
 
 export default function ItemMenu() {
   const { idRestaurante, idCategoria } = useParams();
@@ -31,30 +32,26 @@ export default function ItemMenu() {
   return (
     <div className="item-menu-container">
       <h2>
-        Platos de la categoría{' '}
         {items.length > 0 ? items[0].categoria : idCategoria}
       </h2>
 
       <div className="item-grid">
         {items.map(item => (
-          <div key={item.id} className="item-card">
-            <img
-              src={item.img || '/placeholder.png'}
-              alt={item.nombre}
-              className="item-img"
-            />
-            <h3>{item.nombre}</h3>
-            <p>{item.descripcion}</p>
-            <p><strong>Precio:</strong> ${item.precio}</p>
-            <p>
-              <strong>Disponibilidad:</strong>{' '}
-              {item.disponible ? (
-                <span style={{ color: 'green' }}>Disponible</span>
-              ) : (
-                <span style={{ color: 'red' }}>No disponible</span>
-              )}
-            </p>
-          </div>
+       <div key={item.id} className="item-card">
+       <img src={item.img || '/placeholder.png'} alt={item.nombre} className="item-img" />
+       <div className="item-content">
+         <h3>{item.nombre}</h3>
+         <p><strong>Precio:</strong> ${item.precio}</p>
+         <p>
+           <strong>Disponibilidad:</strong>{' '}
+           {item.disponible ? (
+             <span style={{ color: 'green' }}>Disponible</span>
+           ) : (
+             <span style={{ color: 'red' }}>No disponible</span>
+           )}
+         </p>
+       </div>
+     </div>
         ))}
       </div>
     </div>
