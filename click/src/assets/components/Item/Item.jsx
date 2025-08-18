@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; 
-import './Item.css' 
+import { useParams, useNavigate } from "react-router-dom";
+import './Item.css';
 
 export default function Item() {
-  const { idRestaurante, idItem } = useParams(); // 👈 ahora sí tenés los dos params
+  // 👇 Ahora incluye idCategoria
+  const { idRestaurante, idCategoria, idItem } = useParams(); 
   const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,7 @@ export default function Item() {
         setError(err.message);
         setLoading(false);
       });
-  }, [idRestaurante, idItem]); // 👈 ojo, dependencias
+  }, [idRestaurante, idItem]);
 
   if (loading) return <div>Cargando ítem...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -62,7 +63,14 @@ export default function Item() {
       </div>
 
       <div className="acciones">
-        <button className="btn-volver" onClick={() => navigate(-1)}>VOLVER</button>
+        {/* ✅ Ahora el botón "VOLVER" funcionará correctamente */}
+        <button 
+          className="btn-volver" 
+          onClick={() => navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`)}
+        >
+          VOLVER
+        </button>
+
         <button className="btn-agregar">AGREGAR AL PEDIDO</button>
       </div>
     </div>

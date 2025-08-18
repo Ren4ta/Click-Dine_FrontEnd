@@ -37,7 +37,7 @@ export default function ItemMenu() {
           <div 
             key={item.id} 
             className="item-card-link"
-            onClick={() => navigate(`/items/${idRestaurante}/${item.id}`)} // 👈 ruta actualizada
+            onClick={() => navigate(`/items/${idRestaurante}/${idCategoria}/${item.id}`)} // 👈 ruta actualizada
             style={{ cursor: "pointer" }}
           >
             <div className="item-card">
