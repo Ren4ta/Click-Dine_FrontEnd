@@ -4,7 +4,8 @@ import LogIn from './assets/components/LogIn';
 import Categorias from './assets/components/Categorias/Categorias';
 import Header from './assets/components/Header/Header'; 
 import ItemMenu from './assets/components/ItemMenu/ItemMenu';
-import Item from './assets/components/Item/Item'; // 👈 importar el componente Item
+import Item from './assets/components/Item/Item';  
+import AgregarPedido from './assets/components/AgregarPedido/AgregarPedido'; 
 
 function Layout() {
   const location = useLocation();
