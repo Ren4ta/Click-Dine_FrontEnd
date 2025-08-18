@@ -14,6 +14,12 @@
   padding: 2rem 0;
 }
 
+.item-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .item-card {
   position: relative;
   overflow: hidden;

@@ -4,13 +4,11 @@ import LogIn from './assets/components/LogIn';
 import Categorias from './assets/components/Categorias/Categorias';
 import Header from './assets/components/Header/Header'; 
 import ItemMenu from './assets/components/ItemMenu/ItemMenu';
+import Item from './assets/components/Item/Item'; // 👈 importar el componente Item
 
 function Layout() {
   const location = useLocation();
-  // Rutas en las que NO quieres mostrar el Header
   const hideHeaderRoutes = ['/', '/login', '/admin', '/mesero'];
-
-  // Mostrar Header solo si no está en las rutas para ocultar
   const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname);
 
   return (
@@ -20,8 +18,8 @@ function Layout() {
         <Route path="/" element={<StartScreen />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/categorias" element={<Categorias idRestaurante="1" />} />
-        {/* RUTA PARA ITEMMENU con dos parámetros en URL */}
         <Route path="/items-by-categoria-restaurante/:idRestaurante/:idCategoria" element={<ItemMenu />} />
+        <Route path="/items/:idRestaurante/:idItem" element={<Item />} /> {/* 👈 ruta corregida */}
       </Routes>
     </>
   );
