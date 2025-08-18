@@ -10,15 +10,21 @@
 }
 .logo{
   height: 100px;
+  margin-bottom: 50px;
 }
 
 .logo-image {
-    height: 100px; 
-    width: 100px;
+    height: 150px; 
+    width: 150px;
   }
   
   .notification {
     font-size: 1.8rem;
-    cursor: pointer;
+    cursor: pointer; 
+    margin-top: 37px;
   }
-  
+  .pedido-image 
+  {
+    height: 75px; 
+    width: 75px;
+  }
