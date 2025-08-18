@@ -1,133 +1,141 @@
+/* General container */
 .item-detalle {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    max-width: 900px;
+    min-height: 100vh; /* Occupy most of the screen */
+    padding: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
     font-family: 'Poppins', sans-serif;
-  }
-  
-  .item-detalle-header {
+    box-sizing: border-box;
+}
+
+/* Header and info area */
+.item-detalle-header {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .item-info h2 {
-    font-size: 1.6rem;
-    margin-bottom: 0.3rem;
-  }
-  
-  .precio {
-    font-size: 1.2rem;
+    gap: 1.5rem;
+}
+
+/* Info section for product (Title, Price, Description) */
+.item-info h2 {
+    font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
-  }
-  
-  .descripcion {
-    font-size: 0.95rem;
+}
+
+.precio {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+}
+
+.descripcion {
+    font-size: 1rem;
     color: #333;
-    line-height: 1.4;
-  }
-  
-  .item-detalle-img {
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* Image styling */
+.item-detalle-img {
     width: 100%;
-    max-width: 280px;
-    border-radius: 10px;
+    max-width: 400px;
+    border-radius: 12px;
     object-fit: cover;
     align-self: center;
-  }
-  
-  /* Extras */
-  .extras {
+}
+
+/* Extras (Add-ons section like drinks) */
+.extras {
     margin-top: 1rem;
-  }
-  
-  .extras h3 {
+}
+
+.extras h3 {
     font-size: 1.2rem;
     margin-bottom: 0.8rem;
-  }
-  
-  .extra-row {
+}
+
+.extra-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0.4rem 0;
-    font-size: 1rem;
-  }
-  
-  .extra-row button {
+    margin: 0.6rem 0;
+    font-size: 1.05rem;
+}
+
+.extra-row button {
     background: transparent;
     border: 2px solid #333;
     border-radius: 6px;
-    padding: 0.2rem 0.6rem;
+    padding: 0.3rem 0.7rem;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     transition: 0.2s;
-  }
-  
-  .extra-row button:hover {
+}
+
+.extra-row button:hover {
     background: #333;
     color: #fff;
-  }
-  
-  /* Acciones */
-  .acciones {
+}
+
+/* Action buttons (Back and Add to Order) */
+.acciones {
     display: flex;
     justify-content: space-between;
-    margin-top: 1.5rem;
+    margin-top: auto;
     gap: 1rem;
-  }
-  
-  .btn-volver {
+}
+
+.btn-volver {
     flex: 1;
-    padding: 0.8rem;
+    padding: 1rem;
     border: 2px solid #0077b6;
     background: transparent;
     color: #0077b6;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     transition: 0.2s;
-  }
-  
-  .btn-volver:hover {
+}
+
+.btn-volver:hover {
     background: #0077b6;
     color: #fff;
-  }
-  
-  .btn-agregar {
+}
+
+.btn-agregar {
     flex: 2;
-    padding: 0.8rem;
+    padding: 1rem;
     border: none;
-    background: #800000; /* Rojo oscuro */
+    background: #800000; /* Dark Red */
     color: #fff;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     transition: 0.2s;
-  }
-  
-  .btn-agregar:hover {
+}
+
+.btn-agregar:hover {
     background: #a00000;
-  }
-  
-  /* 📱 Responsive */
-  @media (min-width: 768px) {
+}
+
+/* 📱 Responsive design */
+@media (min-width: 768px) {
     .item-detalle-header {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
     }
-  
+
     .item-info {
-      flex: 2;
+        flex: 2;
+        padding-right: 2rem;
     }
-  
+
     .item-detalle-img {
-      flex: 1;
-      max-width: 320px;
+        flex: 1;
+        max-width: 450px;
+        align-self: flex-start;
     }
-  }
-  
+}

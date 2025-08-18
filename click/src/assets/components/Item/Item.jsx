@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; 
+import './Item.css' 
 
 export default function Item() {
   const { idRestaurante, idItem } = useParams(); // 👈 ahora sí tenés los dos params
