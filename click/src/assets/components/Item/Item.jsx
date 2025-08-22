@@ -8,15 +8,17 @@ export default function Item() {
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [extrasSeleccionados, setExtrasSeleccionados] = useState([]);
 
-  // 🔹 Ejemplo: estos podrían venir de un contexto o del login
+  // 🔹 Estos valores deberían venir del login/mesa
   const id_usuario = 1; 
-  const id_mesa = 5;
+  const id_mesa = 1;
 
+  // 🔹 Extras con sus IDs
   const extras = [
-    { id: 1, nombre: "Coca Zero", precio: 3000 },
-    { id: 2, nombre: "Sprite", precio: 3000 },
-    { id: 3, nombre: "Fanta", precio: 3000 }
+    { id: 101, nombre: "Coca Zero", precio: 3000 },
+    { id: 102, nombre: "Sprite", precio: 3000 },
+    { id: 103, nombre: "Fanta", precio: 3000 }
   ];
 
   useEffect(() => {
@@ -35,15 +37,28 @@ export default function Item() {
       });
   }, [idRestaurante, idItem]);
 
+  // 🔹 Seleccionar/deseleccionar extras
+  const toggleExtra = (extraId) => {
+    setExtrasSeleccionados((prev) =>
+      prev.includes(extraId)
+        ? prev.filter((id) => id !== extraId)
+        : [...prev, extraId]
+    );
+  };
+
+  // 🔹 Enviar pedido al backend
   const handleAgregarPedido = async () => {
+    if (!item) return;
+
+    // armamos array de items = principal + extras seleccionados
     const pedido = {
       id_usuario,
       id_mesa,
-      id_item_menu: item.id
+      items: [item.id, ...extrasSeleccionados]
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/pedidos", {
+      const res = await fetch("http://localhost:3000/api/pedido", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pedido)
@@ -65,7 +80,6 @@ export default function Item() {
   if (error) return <div>Error: {error}</div>;
   if (!item) return <div>No se encontró el ítem.</div>;
 
-  console.log(item.img)
   return (
     <div className="item-detalle">
       <div className="item-detalle-header">
@@ -87,7 +101,12 @@ export default function Item() {
           <div key={extra.id} className="extra-row">
             <span>{extra.nombre}</span>
             <span>${extra.precio.toLocaleString()}</span>
-            <button className="btn-mas">+</button>
+            <button 
+              className={`btn-mas ${extrasSeleccionados.includes(extra.id) ? "activo" : ""}`}
+              onClick={() => toggleExtra(extra.id)}
+            >
+              {extrasSeleccionados.includes(extra.id) ? "✓" : "+"}
+            </button>
           </div>
         ))}
       </div>
