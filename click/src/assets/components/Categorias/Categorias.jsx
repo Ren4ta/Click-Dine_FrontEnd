@@ -36,7 +36,9 @@ export default function Categorias({ idRestaurante }) {
   return (
     <div className="menu-container">
       <div className="menu-grid">
-        {categories.map((cat, idx) => (
+        {categories.map((cat, idx) => {
+          console.log(cat.img)
+          return(
           <div
             key={idx}
             className={`menu-item ${cat.isPromo ? 'promo' : ''}`}
@@ -58,7 +60,7 @@ export default function Categorias({ idRestaurante }) {
               </>
             )}
           </div>
-        ))}
+)})}
       </div>
     </div>
   );

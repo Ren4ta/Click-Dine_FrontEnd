@@ -83,7 +83,7 @@
 .acciones {
     display: flex;
     justify-content: space-between;
-    margin-top: auto;
+    margin-top: 80px;
     gap: 1rem;
 }
 

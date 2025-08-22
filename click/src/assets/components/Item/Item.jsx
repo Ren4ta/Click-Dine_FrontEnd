@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
 import { useParams, useNavigate } from "react-router-dom";
 import './Item.css';
 
 export default function Item() {
-  // 👇 Ahora incluye idCategoria
   const { idRestaurante, idCategoria, idItem } = useParams(); 
   const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // 🔹 Ejemplo: estos podrían venir de un contexto o del login
+  const id_usuario = 1; 
+  const id_mesa = 5;
 
   const extras = [
     { id: 1, nombre: "Coca Zero", precio: 3000 },
@@ -32,10 +35,37 @@ export default function Item() {
       });
   }, [idRestaurante, idItem]);
 
+  const handleAgregarPedido = async () => {
+    const pedido = {
+      id_usuario,
+      id_mesa,
+      id_item_menu: item.id
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/pedidos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pedido)
+      });
+
+      if (!res.ok) throw new Error("Error al agregar el pedido");
+
+      const data = await res.json();
+      alert("Pedido agregado con éxito ✅");
+      console.log("Respuesta del back:", data);
+
+    } catch (err) {
+      console.error(err);
+      alert("Hubo un problema al agregar el pedido ❌");
+    }
+  };
+
   if (loading) return <div>Cargando ítem...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!item) return <div>No se encontró el ítem.</div>;
 
+  console.log(item.img)
   return (
     <div className="item-detalle">
       <div className="item-detalle-header">
@@ -63,7 +93,6 @@ export default function Item() {
       </div>
 
       <div className="acciones">
-        {/* ✅ Ahora el botón "VOLVER" funcionará correctamente */}
         <button 
           className="btn-volver" 
           onClick={() => navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`)}
@@ -71,7 +100,12 @@ export default function Item() {
           VOLVER
         </button>
 
-        <button className="btn-agregar">AGREGAR AL PEDIDO</button>
+        <button 
+          className="btn-agregar"
+          onClick={handleAgregarPedido}
+        >
+          AGREGAR AL PEDIDO
+        </button>
       </div>
     </div>
   );

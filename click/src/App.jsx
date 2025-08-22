@@ -5,7 +5,7 @@ import Categorias from './assets/components/Categorias/Categorias';
 import Header from './assets/components/Header/Header'; 
 import ItemMenu from './assets/components/ItemMenu/ItemMenu';
 import Item from './assets/components/Item/Item';  
-import AgregarPedido from './assets/components/AgregarPedido/AgregarPedido'; 
+
 
 function Layout() {
   const location = useLocation();
@@ -20,7 +20,7 @@ function Layout() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/categorias" element={<Categorias idRestaurante="1" />} />
         <Route path="/items-by-categoria-restaurante/:idRestaurante/:idCategoria" element={<ItemMenu />} />
-        <Route path="/items/:idRestaurante/:idCategoria/:idItem" element={<Item />} /> {/* 👈 ruta corregida */}
+        <Route path="/items/:idRestaurante/:idCategoria/:idItem" element={<Item />} /> 
       </Routes>
     </>
   );
