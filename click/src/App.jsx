@@ -5,7 +5,9 @@ import Categorias from './assets/components/Categorias/Categorias';
 import Header from './assets/components/Header/Header'; 
 import ItemMenu from './assets/components/ItemMenu/ItemMenu';
 import Item from './assets/components/Item/Item';   
-import WishList from './assets/components/WishList/WishList';  
+import WishList from './assets/components/WishList/WishList';   
+import Admin from './assets/components/Admin/Admin'; 
+import Mesero from './assets/components/Mesero/Mesero';
 
 
 function Layout() {
@@ -22,7 +24,9 @@ function Layout() {
         <Route path="/categorias" element={<Categorias idRestaurante="1" />} />
         <Route path="/items-by-categoria-restaurante/:idRestaurante/:idCategoria" element={<ItemMenu />} />
         <Route path="/items/:idRestaurante/:idCategoria/:idItem" element={<Item />} />  
-        <Route path="/wishlist" element={<WishList />} />
+        <Route path="/wishlist" element={<WishList />} /> 
+        <Route path="/mesero" element={<Mesero />} /> 
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </>
   );

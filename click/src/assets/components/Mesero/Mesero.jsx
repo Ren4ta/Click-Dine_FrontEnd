@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Admin = () => {
+const Mesero = () => {
   return (
     <div>
       <h1>Hola, bienvenido mesero</h1>
@@ -8,4 +8,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Mesero;
