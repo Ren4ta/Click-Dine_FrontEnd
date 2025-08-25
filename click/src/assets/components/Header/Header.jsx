@@ -22,7 +22,7 @@ export default function Header() {
           alt="pedido" 
           className="pedido-image"
           style={{ cursor: "pointer" }}
-          onClick={() => navigate('/wishlist')} // 👈 lógica con useNavigate
+          onClick={() => navigate('/wishlist')} 
         />
       </div>
     </header>

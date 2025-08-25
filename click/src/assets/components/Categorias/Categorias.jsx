@@ -27,7 +27,7 @@ export default function Categorias({ idRestaurante }) {
   }, [idRestaurante]);
 
   const handleCategoriaClick = (idCategoria) => {
-    navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`); // Envío ambos parámetros correctamente
+    navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`); 
   };
 
   if (loading) return <div>Cargando categorías...</div>;

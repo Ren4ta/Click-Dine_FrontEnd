@@ -10,11 +10,11 @@ export default function Item() {
   const [error, setError] = useState(null);
   const [extrasSeleccionados, setExtrasSeleccionados] = useState([]);
 
-  // 🔹 Estos valores deberían venir del login/mesa
+  
   const id_usuario = 1; 
   const id_mesa = 1;
 
-  // 🔹 Extras con sus IDs
+ 
   const extras = [
     { id: 101, nombre: "Coca Zero", precio: 3000 },
     { id: 102, nombre: "Sprite", precio: 3000 },
@@ -66,7 +66,7 @@ export default function Item() {
       const data = await res.json();
       console.log("Respuesta del back:", data);
 
-      // 🔹 Mostrar mensaje y redirigir
+      
       alert("Pedido agregado con éxito ✅");
       navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`);
 
