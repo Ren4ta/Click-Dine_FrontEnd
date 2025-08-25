@@ -41,6 +41,10 @@ const LogIn = () => {
        else if (id_tipo === 2 )
        {
         navigate('/mesero');
+       } 
+       else if (id_tipo === 4)
+       {
+        navigate('/cocina'); 
        }
        
       } else {
