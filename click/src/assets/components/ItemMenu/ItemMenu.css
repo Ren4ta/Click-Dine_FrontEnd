@@ -25,7 +25,7 @@
   overflow: hidden;
   border-radius: 32px;
   box-shadow: 0 14px 36px rgba(168, 95, 0, 0.13), 0 1.5px 5px rgba(0,0,0,0.08);
-  background-color: #fff9ed;
+  background-color: #ffffff; /* antes estaba #fff9ed */
   aspect-ratio: 5 / 3;
   min-height: 270px;
   max-width: 430px;
@@ -73,7 +73,7 @@
   font-weight: 700;
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
-  color: #a85f00;
+  color: #000000;
   text-shadow:
     -1px -1px 0 #FFF1DC,
     1px -1px 0 #FFF1DC,
@@ -85,7 +85,7 @@
   font-weight: 300;
   font-size: 1rem;
   margin: 0.2rem 0;
-  color: #5a4b00;
+  color: #000000;
 }
 
 .item-content strong {
