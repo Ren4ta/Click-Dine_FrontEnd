@@ -37,7 +37,6 @@ export default function Item() {
       });
   }, [idRestaurante, idItem]);
 
-  // 🔹 Seleccionar/deseleccionar extras
   const toggleExtra = (extraId) => {
     setExtrasSeleccionados((prev) =>
       prev.includes(extraId)
@@ -46,11 +45,9 @@ export default function Item() {
     );
   };
 
-  // 🔹 Enviar pedido al backend
   const handleAgregarPedido = async () => {
     if (!item) return;
 
-    // armamos array de items = principal + extras seleccionados
     const pedido = {
       id_usuario,
       id_mesa,
@@ -67,8 +64,11 @@ export default function Item() {
       if (!res.ok) throw new Error("Error al agregar el pedido");
 
       const data = await res.json();
-      alert("Pedido agregado con éxito ✅");
       console.log("Respuesta del back:", data);
+
+      // 🔹 Mostrar mensaje y redirigir
+      alert("Pedido agregado con éxito ✅");
+      navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`);
 
     } catch (err) {
       console.error(err);
