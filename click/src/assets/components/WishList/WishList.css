@@ -1,0 +1,44 @@
+.carrito {
+    padding: 1rem;
+  }
+  
+  .carrito h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .carrito-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .carrito-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: #fafafa;
+  }
+  
+  .carrito-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+  
+  .carrito-item h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .carrito-item p {
+    margin: 0.2rem 0;
+  }
+  
+  .carrito-item span {
+    font-weight: bold;
+  }
+  

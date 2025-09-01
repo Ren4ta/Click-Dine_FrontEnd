@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react"; 
+// Item.jsx
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCarrito } from "../../context/WishListContext";
 import './Item.css';
 
 export default function Item() {
-  const { idRestaurante, idCategoria, idItem } = useParams(); 
+  const { idRestaurante, idCategoria, idItem } = useParams();
   const navigate = useNavigate();
+  const { setPedidoId } = useCarrito(); // ✅ obtenemos la función del contexto
+
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [extrasSeleccionados, setExtrasSeleccionados] = useState([]);
 
-  
-  const id_usuario = 1; 
+  const id_usuario = 1;
   const id_mesa = 1;
 
- 
   const extras = [
     { id: 101, nombre: "Coca Zero", precio: 3000 },
     { id: 102, nombre: "Sprite", precio: 3000 },
     { id: 103, nombre: "Fanta", precio: 3000 }
   ];
 
+  // Traer los datos del item
   useEffect(() => {
     fetch(`http://localhost:3000/api/items/${idRestaurante}/${idItem}`)
       .then(res => {
@@ -38,9 +41,9 @@ export default function Item() {
   }, [idRestaurante, idItem]);
 
   const toggleExtra = (extraId) => {
-    setExtrasSeleccionados((prev) =>
+    setExtrasSeleccionados(prev =>
       prev.includes(extraId)
-        ? prev.filter((id) => id !== extraId)
+        ? prev.filter(id => id !== extraId)
         : [...prev, extraId]
     );
   };
@@ -64,12 +67,13 @@ export default function Item() {
       if (!res.ok) throw new Error("Error al agregar el pedido");
 
       const data = await res.json();
-      console.log("Respuesta del back:", data);
+      console.log("Respuesta del backend:", data);
 
-      
+      // ✅ Seteamos el pedidoId en el contexto
+      setPedidoId(data.pedido_id);
+
       alert("Pedido agregado con éxito ✅");
       navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`);
-
     } catch (err) {
       console.error(err);
       alert("Hubo un problema al agregar el pedido ❌");
@@ -101,7 +105,7 @@ export default function Item() {
           <div key={extra.id} className="extra-row">
             <span>{extra.nombre}</span>
             <span>${extra.precio.toLocaleString()}</span>
-            <button 
+            <button
               className={`btn-mas ${extrasSeleccionados.includes(extra.id) ? "activo" : ""}`}
               onClick={() => toggleExtra(extra.id)}
             >
@@ -112,14 +116,14 @@ export default function Item() {
       </div>
 
       <div className="acciones">
-        <button 
-          className="btn-volver" 
+        <button
+          className="btn-volver"
           onClick={() => navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`)}
         >
           VOLVER
         </button>
 
-        <button 
+        <button
           className="btn-agregar"
           onClick={handleAgregarPedido}
         >

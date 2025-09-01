@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCarrito } from '../../context/WishListContext';
 import './Header.css';
 
 export default function Header() {
   const navigate = useNavigate();
+
+  // ✅ Destructuring directo con valor por defecto
+  const { pedidoId } = useCarrito() || {};
+  useEffect(() => {
+    console.log("PedidoId actualizado en Header:", pedidoId);
+  }, [pedidoId]);
+  console.log("PedidoId en Header:", pedidoId);
+
+  const irAlCarrito = () => {
+    console.log("Ir al carrito, pedidoId:", pedidoId);
+    if (pedidoId) {
+      navigate(`/carrito/${pedidoId}`);
+    } else {
+      alert("No hay un pedido activo");
+    }
+  };
 
   return (
     <header className="app-header">
@@ -22,7 +39,7 @@ export default function Header() {
           alt="pedido" 
           className="pedido-image"
           style={{ cursor: "pointer" }}
-          onClick={() => navigate('/wishlist')} 
+          onClick={irAlCarrito} 
         />
       </div>
     </header>
