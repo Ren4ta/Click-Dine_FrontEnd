@@ -10,16 +10,18 @@ export default function ItemMenu() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`)
-      .then(res => {
+    fetch(
+      `http://localhost:3000/api/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`
+    )
+      .then((res) => {
         if (!res.ok) throw new Error("Error al obtener ítems del menú");
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         setItems(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
@@ -30,21 +32,37 @@ export default function ItemMenu() {
 
   return (
     <div className="item-menu-container">
+      {/* 🔹 Flecha de retroceso */}
+      <img
+        src="/flecha-hacia-la-izquierda.png"
+        alt="Volver"
+        className="flecha-back"
+        onClick={() => navigate(-1)}
+      />
+
       <h2>{items.length > 0 ? items[0].categoria : idCategoria}</h2>
 
       <div className="item-grid">
-        {items.map(item => (
-          <div 
-            key={item.id} 
+        {items.map((item) => (
+          <div
+            key={item.id}
             className="item-card-link"
-            onClick={() => navigate(`/items/${idRestaurante}/${idCategoria}/${item.id}`)} // 👈 ruta actualizada
+            onClick={() =>
+              navigate(`/items/${idRestaurante}/${idCategoria}/${item.id}`)
+            }
             style={{ cursor: "pointer" }}
           >
             <div className="item-card">
-              <img src={item.img || "/placeholder.png"} alt={item.nombre} className="item-img" />
+              <img
+                src={item.img || "/placeholder.png"}
+                alt={item.nombre}
+                className="item-img"
+              />
               <div className="item-content">
                 <h3>{item.nombre}</h3>
-                <p><strong>Precio:</strong> ${item.precio}</p>
+                <p>
+                  <strong>Precio:</strong> ${item.precio}
+                </p>
                 <p>
                   <strong>Disponibilidad:</strong>{" "}
                   {item.disponible ? (

@@ -1,16 +1,19 @@
 .carrito {
-  padding: 1.5rem;
-  border-radius: 8px;
-  width: 320px;
+  padding: 2rem; /* más aire */
+  border-radius: 10px;
+  width: 500px; /* antes 320px */
+  margin: 2rem auto; /* centrado */
   font-family: "Arial", sans-serif;
   color: #333;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .carrito h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  font-size: 1.6rem; /* más grande */
   font-weight: bold;
-  text-align: right;
+  text-align: center;
   text-transform: uppercase;
 }
 
@@ -23,36 +26,45 @@
 .carrito-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
-  font-size: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem; /* más grande */
+}
+
+.carrito-item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .carrito-total {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  margin-top: 1.2rem;
-  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  font-size: 1.2rem; /* destacado */
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
 }
 
 .carrito-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .carrito-buttons .btn {
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1.4rem; /* más grandes */
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 1rem;
   transition: all 0.2s ease;
 }
 
 .carrito-buttons .btn-outline {
   background: transparent;
-  border: 1px solid #3a6a7b;
+  border: 1.5px solid #3a6a7b;
   color: #3a6a7b;
 }
 
@@ -68,4 +80,18 @@
 
 .carrito-buttons .btn-primary:hover {
   background: #a00000;
+}
+
+/* Botón eliminar */
+.btn-remove {
+  background: transparent;
+  border: none;
+  color: #a00000;
+  font-size: 1.2rem; /* más visible */
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-remove:hover {
+  color: #ff0000;
 }
