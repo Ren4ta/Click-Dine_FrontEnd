@@ -1,44 +1,71 @@
 .carrito {
-    padding: 1rem;
-  }
-  
-  .carrito h2 {
-    margin-bottom: 1rem;
-  }
-  
-  .carrito-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .carrito-item {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background: #fafafa;
-  }
-  
-  .carrito-item img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    margin-right: 1rem;
-  }
-  
-  .carrito-item h3 {
-    margin: 0;
-    font-size: 1.1rem;
-  }
-  
-  .carrito-item p {
-    margin: 0.2rem 0;
-  }
-  
-  .carrito-item span {
-    font-weight: bold;
-  }
-  
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 320px;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+.carrito h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.carrito-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.carrito-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.carrito-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.carrito-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.carrito-buttons .btn {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.carrito-buttons .btn-outline {
+  background: transparent;
+  border: 1px solid #3a6a7b;
+  color: #3a6a7b;
+}
+
+.carrito-buttons .btn-outline:hover {
+  background: #3a6a7b;
+  color: #fff;
+}
+
+.carrito-buttons .btn-primary {
+  background: #7b0000;
+  color: #fff;
+}
+
+.carrito-buttons .btn-primary:hover {
+  background: #a00000;
+}

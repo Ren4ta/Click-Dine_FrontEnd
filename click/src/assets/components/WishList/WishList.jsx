@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "./WishList.css";
 
 const WishList = () => {
-  const { pedidoId } = useParams(); // <-- obtenemos el parámetro de la URL
+  const { pedidoId } = useParams();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,21 +32,29 @@ const WishList = () => {
   if (error) return <p>{error}</p>;
   if (items.length === 0) return <p>No hay ítems en el carrito</p>;
 
+  const total = items.reduce((acc, item) => acc + item.precio, 0);
+
   return (
-    <div>
-      <h2>Carrito del Pedido {pedidoId}</h2>
-      <ul>
+    <div className="carrito">
+      <h2>Resumen</h2>
+      <ul className="carrito-list">
         {items.map((item) => (
-          <li key={item.id}>
-            <img src={item.img} alt={item.nombre} />
-            <div>
-              <h3>{item.nombre}</h3>
-              <p>{item.descripcion}</p>
-              <span>${item.precio}</span>
-            </div>
+          <li className="carrito-item" key={item.id}>
+            <span>{item.nombre}</span>
+            <span>${item.precio}</span>
           </li>
         ))}
       </ul>
+
+      <div className="carrito-total">
+        <span>Total</span>
+        <span>${total}</span>
+      </div>
+
+      <div className="carrito-buttons">
+        <button className="btn btn-outline">MI PEDIDO NO ESTA COMPLETO</button>
+        <button className="btn btn-primary">PEDIR</button>
+      </div>
     </div>
   );
 };
