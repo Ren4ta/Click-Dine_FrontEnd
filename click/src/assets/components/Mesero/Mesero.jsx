@@ -1,57 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Mesero() {
-  const [idUsuario, setIdUsuario] = useState('');
-  const [idMesa, setIdMesa] = useState('');
-  const [items, setItems] = useState([{ id_item_menu: '', cantidad: 1 }]);
+  const [idRestaurante] = useState(1); // ID fijo
+  const [mesas, setMesas] = useState([]);
+  const [idPedidoSeleccionado, setIdPedidoSeleccionado] = useState(null);
+  const [carrito, setCarrito] = useState([]);
   const [mensaje, setMensaje] = useState('');
 
-  // Agrega un nuevo item al pedido
-  const agregarItem = () => {
-    setItems([...items, { id_item_menu: '', cantidad: 1 }]);
-  };
+  // Estados disponibles
+  const estados = [
+    { id: 2, nombre: 'Standby' },
+    { id: 3, nombre: 'En proceso' },
+    { id: 4, nombre: 'Autorizado' },
+    { id: 5, nombre: 'Listo en Cocina' },
+    { id: 6, nombre: 'Entregado' },
+    { id: 7, nombre: 'Pagado y Finalizado' },
+  ];
 
-  // Maneja cambios en los items
-  const manejarCambioItem = (index, field, value) => {
-    const nuevosItems = [...items];
-    nuevosItems[index][field] = value;
-    setItems(nuevosItems);
-  };
-
-  // Envía el pedido al backend
-  const enviarPedido = async (e) => {
-    e.preventDefault();
-
-    // Validación simple
-    if (!idUsuario || !idMesa || items.length === 0) {
-      setMensaje('Por favor completa todos los datos.');
-      return;
-    }
-
+  // Traer mesas con pedidos activos
+  const obtenerMesas = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/pedido', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id_usuario: Number(idUsuario),
-          id_mesa: Number(idMesa),
-          items: items.map(i => ({
-            id_item_menu: Number(i.id_item_menu),
-            cantidad: Number(i.cantidad)
-          }))
-        })
-      });
+      const res = await fetch(`http://localhost:3000/mesas/${idRestaurante}/pedidos-activos`);
+      if (!res.ok) throw new Error('Error al obtener mesas');
+      const data = await res.json();
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        setMensaje(`Error: ${errorData.error}`);
+      setMesas(data);
+
+      // Selecciona primer pedido activo
+      const primeraMesaConPedido = data.find(m => m.pedido_activo);
+      if (primeraMesaConPedido) {
+        setIdPedidoSeleccionado(primeraMesaConPedido.pedido.id_pedido);
+        setCarrito(primeraMesaConPedido.pedido.items || []);
       } else {
-        const data = await response.json();
-        setMensaje(`Pedido creado con éxito! ID: ${data.id || 'N/A'}`);
-        // Limpiar formulario
-        setIdUsuario('');
-        setIdMesa('');
-        setItems([{ id_item_menu: '', cantidad: 1 }]);
+        setMensaje('No hay mesas con pedidos activos.');
+        setCarrito([]);
+        setIdPedidoSeleccionado(null);
       }
     } catch (error) {
       console.error(error);
@@ -59,59 +42,90 @@ export default function Mesero() {
     }
   };
 
+  // Actualizar estado de un item
+  const actualizarEstadoItem = async (idItemPedido, idEstadoItem) => {
+    try {
+      const res = await fetch('http://localhost:3000/api/item-pedido/estado', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_pedido: idPedidoSeleccionado,
+          items: [{ id_item_pedido: idItemPedido, id_estado_item: Number(idEstadoItem) }]
+        })
+      });
+
+      if (!res.ok) throw new Error('Error al actualizar estado del ítem');
+
+      // Actualizar carrito local
+      setCarrito(prev =>
+        prev.map(item =>
+          item.id_item_pedido === idItemPedido
+            ? { ...item, estado_item: estados.find(e => e.id === Number(idEstadoItem))?.nombre }
+            : item
+        )
+      );
+
+      setMensaje('Estado del ítem actualizado correctamente.');
+    } catch (error) {
+      console.error(error);
+      setMensaje('Error al actualizar el estado del ítem.');
+    }
+  };
+
+  useEffect(() => {
+    obtenerMesas();
+  }, []);
+
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Crear Pedido</h2>
-      <form onSubmit={enviarPedido}>
-        <div>
-          <label>ID Usuario:</label>
-          <input
-            type="number"
-            value={idUsuario}
-            onChange={(e) => setIdUsuario(e.target.value)}
-            required
-          />
+    <div style={{ padding: '20px' }}> 
+    <h1> APP MESERO</h1>
+      <h2>Pedidos Activos - Restaurante {idRestaurante}</h2>
+
+      {mesas.length > 0 && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>Mesas con pedidos activos:</h3>
+          <ul>
+            {mesas.map((mesa) => (
+              <li key={mesa.id_mesa}>
+                Mesa {mesa.numero_mesa} - Pedido {mesa.pedido_activo ? mesa.pedido.id_pedido : 'N/A'}{' '}
+                {mesa.pedido_activo && (
+                  <button onClick={() => {
+                    setIdPedidoSeleccionado(mesa.pedido.id_pedido);
+                    setCarrito(mesa.pedido.items || []);
+                  }}>
+                    Ver Carrito
+                  </button>
+                )}
+                {!mesa.pedido_activo && <span> - Sin pedido activo</span>}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div>
-          <label>ID Mesa:</label>
-          <input
-            type="number"
-            value={idMesa}
-            onChange={(e) => setIdMesa(e.target.value)}
-            required
-          />
+      )}
+
+      {idPedidoSeleccionado && carrito.length > 0 && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>Carrito del pedido {idPedidoSeleccionado}</h3>
+          <ul>
+            {carrito.map((item) => (
+              <li key={item.id_item_pedido} style={{ marginBottom: '10px' }}>
+                <strong>{item.nombre}</strong> - Estado:{' '}
+                <select
+                  value={estados.find(e => e.nombre === item.estado_item)?.id || 2}
+                  onChange={(e) => actualizarEstadoItem(item.id_item_pedido, e.target.value)}
+                >
+                  {estados.map((estado) => (
+                    <option key={estado.id} value={estado.id}>
+                      {estado.nombre}
+                    </option>
+                  ))}
+                </select>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div>
-          <h4>Items:</h4>
-          {items.map((item, index) => (
-            <div key={index} style={{ marginBottom: '10px' }}>
-              <label>ID Item:</label>
-              <input
-                type="number"
-                value={item.id_item_menu}
-                onChange={(e) =>
-                  manejarCambioItem(index, 'id_item_menu', e.target.value)
-                }
-                required
-              />
-              <label>Cantidad:</label>
-              <input
-                type="number"
-                value={item.cantidad}
-                min="1"
-                onChange={(e) =>
-                  manejarCambioItem(index, 'cantidad', e.target.value)
-                }
-                required
-              />
-            </div>
-          ))}
-          <button type="button" onClick={agregarItem}>
-            Agregar otro item
-          </button>
-        </div>
-        <button type="submit">Crear Pedido</button>
-      </form>
+      )}
+
       {mensaje && <p>{mensaje}</p>}
     </div>
   );

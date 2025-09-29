@@ -9,7 +9,8 @@ import WishList from './assets/components/WishList/WishList';
 import Admin from './assets/components/Admin/Admin'; 
 import Mesero from './assets/components/Mesero/Mesero';  
 import Cocina from './assets/components/Cocina/Cocina'; 
-import { WishListProvider } from "./assets/context/WishListContext";
+import { WishListProvider } from "./assets/context/WishListContext"; 
+import Espera from "./assets/components/Espera/Espera"
 
 
 
@@ -30,7 +31,8 @@ function Layout() {
         <Route path="/carrito/:pedidoId" element={<WishList />} /> 
         <Route path="/mesero" element={<Mesero />} /> 
         <Route path="/admin" element={<Admin />} /> 
-        <Route path="/cocina" element={<Cocina />} />
+        <Route path="/cocina" element={<Cocina />} /> 
+        <Route path="/espera" element={<Espera />} /> 
       </Routes> 
     </WishListProvider>
   );

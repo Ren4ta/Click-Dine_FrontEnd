@@ -8,7 +8,9 @@ const WishList = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [mensaje, setMensaje] = useState("");
 
+  // Traer carrito al montar el componente
   useEffect(() => {
     const fetchCarrito = async () => {
       try {
@@ -39,9 +41,38 @@ const WishList = () => {
 
   const total = items.reduce((acc, item) => acc + item.precio, 0);
 
+  // Función para enviar el pedido (cambiar estado)
+  const handlePedir = async () => {
+    try {
+      const res = await fetch(
+        "http://localhost:3000/pedido/UpdateEstado/update-estado",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id_pedido: Number(pedidoId),   // obligatorio y tipo number
+            id_estado_pedido: 2            // ejemplo: 2 = "en-preparacion"
+          })
+        }
+      );
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data?.error || "Error al actualizar el estado del pedido");
+      }
+
+      setMensaje("El pedido se ha enviado correctamente!");
+      setTimeout(() => navigate("/espera"), 1500);
+    } catch (err) {
+      console.error(err);
+      setMensaje(err.message || "Error al actualizar el estado del pedido.");
+    }
+  };
+
   return (
     <div className="carrito">
       <h2>SU PEDIDO ACTUAL</h2>
+      {mensaje && <p>{mensaje}</p>}
       <ul className="carrito-list">
         {items.map((item) => (
           <li className="carrito-item" key={item.id}>
@@ -71,7 +102,9 @@ const WishList = () => {
         >
           MI PEDIDO NO ESTA COMPLETO
         </button>
-        <button className="btn btn-primary">PEDIR</button>
+        <button className="btn btn-primary" onClick={handlePedir}>
+          PEDIR
+        </button>
       </div>
     </div>
   );
