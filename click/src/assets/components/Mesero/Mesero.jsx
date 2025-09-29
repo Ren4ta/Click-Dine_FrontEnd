@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Mesero.css';
 
 export default function Mesero() {
   const [idRestaurante] = useState(1); // ID fijo
@@ -23,22 +24,30 @@ export default function Mesero() {
       const res = await fetch(`http://localhost:3000/mesas/${idRestaurante}/pedidos-activos`);
       if (!res.ok) throw new Error('Error al obtener mesas');
       const data = await res.json();
-
       setMesas(data);
 
-      // Selecciona primer pedido activo
-      const primeraMesaConPedido = data.find(m => m.pedido_activo);
-      if (primeraMesaConPedido) {
-        setIdPedidoSeleccionado(primeraMesaConPedido.pedido.id_pedido);
-        setCarrito(primeraMesaConPedido.pedido.items || []);
-      } else {
-        setMensaje('No hay mesas con pedidos activos.');
-        setCarrito([]);
-        setIdPedidoSeleccionado(null);
-      }
+      const hayPedidoActivo = data.some(m => m.pedido_activo);
+      if (!hayPedidoActivo) setMensaje('No hay mesas con pedidos activos.');
     } catch (error) {
       console.error(error);
       setMensaje('Error al conectar con el servidor.');
+    }
+  };
+
+  useEffect(() => {
+    obtenerMesas();
+  }, []);
+
+  // Mostrar carrito al presionar botón
+  const verCarrito = (mesa) => {
+    if (mesa.pedido_activo) {
+      setIdPedidoSeleccionado(mesa.pedido.id_pedido);
+      setCarrito(mesa.pedido.items || []);
+      setMensaje('');
+    } else {
+      setCarrito([]);
+      setIdPedidoSeleccionado(null);
+      setMensaje('Esta mesa no tiene pedido activo.');
     }
   };
 
@@ -72,44 +81,30 @@ export default function Mesero() {
     }
   };
 
-  useEffect(() => {
-    obtenerMesas();
-  }, []);
-
   return (
-    <div style={{ padding: '20px' }}> 
-    <h1> APP MESERO</h1>
-      <h2>Pedidos Activos - Restaurante {idRestaurante}</h2>
+    <div className="container"> 
+    <h2> APP MESERO</h2>
+      <h2>Pedidos Activos</h2>
 
-      {mesas.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Mesas con pedidos activos:</h3>
-          <ul>
-            {mesas.map((mesa) => (
-              <li key={mesa.id_mesa}>
-                Mesa {mesa.numero_mesa} - Pedido {mesa.pedido_activo ? mesa.pedido.id_pedido : 'N/A'}{' '}
-                {mesa.pedido_activo && (
-                  <button onClick={() => {
-                    setIdPedidoSeleccionado(mesa.pedido.id_pedido);
-                    setCarrito(mesa.pedido.items || []);
-                  }}>
-                    Ver Carrito
-                  </button>
-                )}
-                {!mesa.pedido_activo && <span> - Sin pedido activo</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <ul className="mesas-list">
+        {mesas.map((mesa) => (
+          <li className="mesa-card" key={mesa.id_mesa}>
+            <div className="mesa-info">
+              Mesa {mesa.numero_mesa} 
+              {mesa.pedido_activo && <> - Pedido {mesa.pedido.id_pedido}</>}
+            </div>
+            <button onClick={() => verCarrito(mesa)}>Ver Carrito</button>
+          </li>
+        ))}
+      </ul>
 
       {idPedidoSeleccionado && carrito.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
+        <div className="carrito">
           <h3>Carrito del pedido {idPedidoSeleccionado}</h3>
           <ul>
             {carrito.map((item) => (
-              <li key={item.id_item_pedido} style={{ marginBottom: '10px' }}>
-                <strong>{item.nombre}</strong> - Estado:{' '}
+              <li key={item.id_item_pedido} className={`carrito-item estado-${estados.find(e => e.nombre === item.estado_item)?.id || 2}`}>
+                <span>{item.nombre}</span>
                 <select
                   value={estados.find(e => e.nombre === item.estado_item)?.id || 2}
                   onChange={(e) => actualizarEstadoItem(item.id_item_pedido, e.target.value)}

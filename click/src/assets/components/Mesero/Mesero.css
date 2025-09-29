@@ -1,49 +1,117 @@
-.mesero-container {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    font-family: "Arial", sans-serif;
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f2f4f8;
+}
+
+/* Títulos */
+h2 {
+  text-align: center;
+  color: #222;
+  margin-bottom: 30px;
+}
+
+h3 {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Grid de mesas */
+.mesas-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0;
+  list-style: none; /* quitar bullets */
+}
+
+/* Cada mesa como tarjeta */
+.mesa-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.mesa-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* Info de la mesa */
+.mesa-info {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+/* Botón debajo del texto */
+.mesa-card button {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.mesa-card button:hover {
+  background-color: #0056b3;
+}
+
+/* Carrito */
+.carrito {
+  margin-top: 25px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.carrito-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.carrito-item:last-child {
+  border-bottom: none;
+}
+
+select {
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Mensajes */
+p {
+  margin-top: 15px;
+  color: #d9534f;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mesa-card {
+    padding: 15px;
   }
-  
-  .mesero-container h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-    text-transform: uppercase;
-  }
-  
-  .pedidos-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .pedido-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
-  }
-  
-  .pedido-card:hover {
-    transform: translateY(-4px);
-  }
-  
-  .pedido-card h3 {
-    margin-bottom: 0.8rem;
-    font-size: 1.2rem;
-    color: #7b0000;
-  }
-  
-  .pedido-card ul {
-    margin: 0.5rem 0;
-    padding-left: 1.2rem;
-  }
-  
-  .pedido-card li {
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
-  }
-  
+}
+
+@media (max-width: 480px) {
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+}

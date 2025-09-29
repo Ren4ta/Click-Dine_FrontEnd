@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Cocina.css';
 
 export default function Cocina() {
   const [idRestaurante] = useState(1); // ID fijo
@@ -7,86 +8,116 @@ export default function Cocina() {
   const [carrito, setCarrito] = useState([]);
   const [mensaje, setMensaje] = useState('');
 
+  // Estados disponibles
+  const estados = [
+    { id: 2, nombre: 'Standby' },
+    { id: 3, nombre: 'En proceso' },
+    { id: 4, nombre: 'Autorizado' },
+    { id: 5, nombre: 'Listo en Cocina' },
+    { id: 6, nombre: 'Entregado' },
+    { id: 7, nombre: 'Pagado y Finalizado' },
+  ];
+
   // Traer mesas con pedidos activos
   const obtenerMesas = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/mesas/${idRestaurante}/pedidos-activos`);
-      if (!response.ok) throw new Error('Error al obtener mesas');
-      const data = await response.json();
+      const res = await fetch(`http://localhost:3000/mesas/${idRestaurante}/pedidos-activos`);
+      if (!res.ok) throw new Error('Error al obtener mesas');
+      const data = await res.json();
+      setMesas(data);
 
-      // Filtrar solo mesas con pedidos activos (por si el backend no lo hace)
-      const mesasActivas = data.filter(m => m.estado === 'activo');
-      setMesas(mesasActivas);
-
-      if (mesasActivas.length > 0) {
-        // Tomar el primer pedido activo y cargar su carrito
-        const primerPedidoId = mesasActivas[0].id_pedido;
-        obtenerCarrito(primerPedidoId);
-      } else {
-        setMensaje('No hay mesas con pedidos activos.');
-      }
+      const hayPedidoActivo = data.some(m => m.pedido_activo);
+      if (!hayPedidoActivo) setMensaje('No hay mesas con pedidos activos.');
     } catch (error) {
       console.error(error);
       setMensaje('Error al conectar con el servidor.');
     }
   };
 
-  // Traer carrito de un pedido
-  const obtenerCarrito = async (idPedido) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/carrito/${idPedido}`);
-      if (!response.ok) throw new Error('Error al obtener carrito');
-      const data = await response.json();
-      setCarrito(data);
-      setIdPedidoSeleccionado(idPedido);
-      setMensaje('');
-    } catch (error) {
-      console.error(error);
-      setMensaje('Error al cargar el carrito.');
-    }
-  };
-
-  // Ejecutar al montar el componente
   useEffect(() => {
     obtenerMesas();
   }, []);
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <h2>Pedidos Activos - Restaurante {idRestaurante}</h2>
+  // Mostrar carrito al presionar botón
+  const verCarrito = (mesa) => {
+    if (mesa.pedido_activo) {
+      setIdPedidoSeleccionado(mesa.pedido.id_pedido);
+      setCarrito(mesa.pedido.items || []);
+      setMensaje('');
+    } else {
+      setCarrito([]);
+      setIdPedidoSeleccionado(null);
+      setMensaje('Esta mesa no tiene pedido activo.');
+    }
+  };
 
-      {/* Mostrar mesas */}
-      {mesas.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Mesas con pedidos activos:</h3>
+  // Actualizar estado de un item
+  const actualizarEstadoItem = async (idItemPedido, idEstadoItem) => {
+    try {
+      const res = await fetch('http://localhost:3000/api/item-pedido/estado', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id_pedido: idPedidoSeleccionado,
+          items: [{ id_item_pedido: idItemPedido, id_estado_item: Number(idEstadoItem) }]
+        })
+      });
+
+      if (!res.ok) throw new Error('Error al actualizar estado del ítem');
+
+      // Actualizar carrito local
+      setCarrito(prev =>
+        prev.map(item =>
+          item.id_item_pedido === idItemPedido
+            ? { ...item, estado_item: estados.find(e => e.id === Number(idEstadoItem))?.nombre }
+            : item
+        )
+      );
+
+      setMensaje('Estado del ítem actualizado correctamente.');
+    } catch (error) {
+      console.error(error);
+      setMensaje('Error al actualizar el estado del ítem.');
+    }
+  };
+
+  return (
+    <div className="container"> 
+    <h2> APP MESERO</h2>
+      <h2>Pedidos Activos</h2>
+
+      <ul className="mesas-list">
+        {mesas.map((mesa) => (
+          <li className="mesa-card" key={mesa.id_mesa}>
+            <div className="mesa-info">
+              Mesa {mesa.numero_mesa} 
+              {mesa.pedido_activo && <> - Pedido {mesa.pedido.id_pedido}</>}
+            </div>
+            <button onClick={() => verCarrito(mesa)}>Ver Carrito</button>
+          </li>
+        ))}
+      </ul>
+
+      {idPedidoSeleccionado && carrito.length > 0 && (
+        <div className="carrito">
+          <h3>Carrito del pedido {idPedidoSeleccionado}</h3>
           <ul>
-            {mesas.map((mesa) => (
-              <li key={mesa.id_mesa}>
-                Mesa {mesa.id_mesa} - Pedido {mesa.id_pedido}{' '}
-                <button onClick={() => obtenerCarrito(mesa.id_pedido)}>
-                  Ver Carrito
-                </button>
+            {carrito.map((item) => (
+              <li key={item.id_item_pedido} className={`carrito-item estado-${estados.find(e => e.nombre === item.estado_item)?.id || 2}`}>
+                <span>{item.nombre}</span>
+                <select
+                  value={estados.find(e => e.nombre === item.estado_item)?.id || 2}
+                  onChange={(e) => actualizarEstadoItem(item.id_item_pedido, e.target.value)}
+                >
+                  {estados.map((estado) => (
+                    <option key={estado.id} value={estado.id}>
+                      {estado.nombre}
+                    </option>
+                  ))}
+                </select>
               </li>
             ))}
           </ul>
-        </div>
-      )}
-
-      {/* Mostrar carrito */}
-      {idPedidoSeleccionado && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Carrito del pedido {idPedidoSeleccionado}</h3>
-          {carrito.length > 0 ? (
-            <ul>
-              {carrito.map((item, index) => (
-                <li key={index}>
-                  Item {item.id_item_menu} - Cantidad: {item.cantidad}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Este pedido no tiene ítems.</p>
-          )}
         </div>
       )}
 
