@@ -83,7 +83,7 @@ export default function Cocina() {
 
   return (
     <div className="container"> 
-    <h2> APP MESERO</h2>
+    <h2> APP COCINA</h2>
       <h2>Pedidos Activos</h2>
 
       <ul className="mesas-list">
