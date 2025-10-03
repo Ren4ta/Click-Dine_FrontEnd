@@ -10,7 +10,6 @@ const WishList = () => {
   const [error, setError] = useState(null);
   const [mensaje, setMensaje] = useState("");
 
-  // Traer carrito al montar el componente
   useEffect(() => {
     const fetchCarrito = async () => {
       try {
@@ -18,6 +17,7 @@ const WishList = () => {
         const res = await fetch(`http://localhost:3000/api/carrito/${pedidoId}`);
         if (!res.ok) throw new Error("Error al cargar el carrito");
         const data = await res.json();
+        console.log("📦 Carrito recibido:", data);
         setItems(data);
       } catch (err) {
         setError(err.message);
@@ -35,13 +35,13 @@ const WishList = () => {
   if (error) return <p>{error}</p>;
   if (items.length === 0) return <p>No hay ítems en el carrito</p>;
 
-  const handleRemove = (id) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
+  // ✅ Ahora eliminamos por índice, no por ID (para no borrar todos los repetidos)
+  const handleRemove = (indexToRemove) => {
+    setItems((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
 
-  const total = items.reduce((acc, item) => acc + item.precio, 0);
+  const total = items.reduce((acc, item) => acc + Number(item.precio || 0), 0);
 
-  // Función para enviar el pedido (cambiar estado)
   const handlePedir = async () => {
     try {
       const res = await fetch(
@@ -50,8 +50,8 @@ const WishList = () => {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            id_pedido: Number(pedidoId),   // obligatorio y tipo number
-            id_estado_pedido: 2            // ejemplo: 2 = "en-preparacion"
+            id_pedido: Number(pedidoId),
+            id_estado_pedido: 2
           })
         }
       );
@@ -73,15 +73,16 @@ const WishList = () => {
     <div className="carrito">
       <h2>SU PEDIDO ACTUAL</h2>
       {mensaje && <p>{mensaje}</p>}
+
       <ul className="carrito-list">
-        {items.map((item) => (
-          <li className="carrito-item" key={item.id}>
+        {items.map((item, index) => (
+          <li className="carrito-item" key={`${item.id}-${index}`}>
             <span>{item.nombre}</span>
             <div className="carrito-item-right">
               <span>${item.precio}</span>
               <button
                 className="btn-remove"
-                onClick={() => handleRemove(item.id)}
+                onClick={() => handleRemove(index)}
               >
                 ✖
               </button>
