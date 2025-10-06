@@ -7,7 +7,7 @@ import "./Item.css";
 export default function Item() {
   const { idRestaurante, idCategoria, idItem } = useParams();
   const navigate = useNavigate();
-  const { setPedidoId } = useCarrito();
+  const { pedidoId, setPedidoId } = useCarrito(); // ✅ ahora también usamos pedidoId
 
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -58,12 +58,10 @@ export default function Item() {
       return;
     }
 
-    // ✅ Formato esperado por el backend: array de IDs
-    const pedido = {
-      id_usuario,
-      id_mesa,
-      items: [itemId, ...extrasSeleccionados]
-    };
+    // ✅ Si ya hay un pedido_id, lo incluimos para agregar items al mismo pedido
+    const pedido = pedidoId
+      ? { id_pedido: pedidoId, items: [itemId, ...extrasSeleccionados] }
+      : { id_usuario, id_mesa, items: [itemId, ...extrasSeleccionados] };
 
     console.log("📦 Pedido que se enviará:", pedido);
 
@@ -79,11 +77,12 @@ export default function Item() {
       const data = await res.json();
       console.log("✅ Respuesta del backend:", data);
 
-      if (data.pedido_id) {
+      // ✅ Si se creó un pedido nuevo, guardamos su id
+      if (data.pedido_id && !pedidoId) {
         setPedidoId(data.pedido_id);
       }
 
-      alert("Pedido agregado con éxito ✅");
+      alert("Item agregado al pedido ✅");
       navigate(`/items-by-categoria-restaurante/${idRestaurante}/${idCategoria}`);
     } catch (err) {
       console.error(err);
